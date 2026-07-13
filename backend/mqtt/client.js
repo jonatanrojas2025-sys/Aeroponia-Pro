@@ -1,23 +1,30 @@
 const mqtt = require("mqtt");
+const SensorReading = require("../models/LecturaSensor");
 const config = require("../config/mqttConfig");
+const { procesarLectura } = require("../services/sensorService");
+const LecturaSensor = require("../models/LecturaSensor");
 
-// Variable donde guardaremos la última lectura recibida
+// Variable donde guardaremos la última lectura
 let ultimoDato = {
-    temperatura: 0,
-    humedad: 0,
+    temp_air: 0,
+    hum: 0,
+    press: 0,
+    alt: 0,
+    temp_water: 0,
     ph: 0,
-    caudal: 0,
-    nivel: 0
+    lux: 0,
+    pump: false,
+    wifi: 0
 };
 
-// Conectar al broker MQTT
+// Conectar al broker
 const client = mqtt.connect(config.url, {
     username: config.username,
     password: config.password,
     protocol: "wss"
 });
 
-// Conexión exitosa
+// Conexión
 client.on("connect", () => {
 
     console.log("✅ Backend conectado a HiveMQ");
@@ -27,36 +34,42 @@ client.on("connect", () => {
 });
 
 // Mensajes recibidos
-client.on("message", (topic, message) => {
+client.on("message", async (topic, message) => {
 
     try {
 
         const datos = JSON.parse(message.toString());
 
-        ultimoDato = datos;
+        ultimoDato = new LecturaSensor(datos);
 
-        console.log("📩 Datos recibidos:");
-        console.log(ultimoDato);
+        await procesarLectura(datos);
 
-    } catch (error) {
+        console.log("📥 Nueva lectura procesada por MIAA");
 
-        console.log("❌ Error leyendo JSON MQTT");
-        console.log(error.message);
+    }
+
+    catch (error) {
+
+        console.log("❌ Error procesando lectura");
+
+        console.log(error);
 
     }
 
 });
 
 client.on("error", (err) => {
-    console.log("========== ERROR MQTT ==========");
+
     console.log(err);
-    console.log("===============================");
+
 });
 
 module.exports = {
 
     getUltimoDato() {
+
         return ultimoDato;
+
     }
 
 };
