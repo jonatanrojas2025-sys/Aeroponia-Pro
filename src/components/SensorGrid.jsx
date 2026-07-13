@@ -1,6 +1,8 @@
 import SensorCard from "./SensorCard";
 import { FaTemperatureLow } from "react-icons/fa6";
 import { WiHumidity } from "react-icons/wi";
+import { MdOutlineWaterDrop } from "react-icons/md";
+import { IoSunnyOutline } from "react-icons/io5";
 
 function SensorGrid({ datos }) {
 
@@ -10,43 +12,50 @@ function SensorGrid({ datos }) {
 
             <SensorCard
                 icono={<FaTemperatureLow />}
-                titulo="Temperatura "
-                valor={datos.temp_air.toFixed(1)}
+                titulo="Temperatura Aire"
+                valor={Number(datos.temperaturaAire ?? 0).toFixed(1)}
                 unidad="°C"
             />
+
             <SensorCard
                 icono={<WiHumidity />}
                 titulo="Humedad"
-                valor={datos.hum.toFixed(1)}
+                valor={Number(datos.humedad ?? 0).toFixed(1)}
                 unidad="%"
             />
+
             <SensorCard
-                icono="☀"
-                titulo="Luz"
-                valor={datos.lux.toFixed(1)}
+                icono={<IoSunnyOutline />}
+                titulo="Luminosidad"
+                valor={Number(datos.luminosidad ?? 0).toFixed(1)}
                 unidad="lux"
             />
+
             <SensorCard
-                icono={<FaTemperatureLow />}
+                icono={<MdOutlineWaterDrop />}
                 titulo="Temperatura Agua"
-                valor={datos.temp_water.toFixed(1)}
+                valor={Number(datos.temperaturaAgua ?? 0).toFixed(1)}
                 unidad="°C"
             />
+
             <SensorCard
                 icono="🧪"
                 titulo="pH"
-                valor={datos.ph.toFixed(2)}
+                valor={Number(datos.ph ?? 0).toFixed(2)}
                 unidad=""
             />
 
-            {/* <SensorCard
+            <SensorCard
                 icono="📶"
                 titulo="WiFi"
-                valor={datos.wifi}
+                valor={datos.wifi ?? 0}
                 unidad="dBm"
-            /> */}
+            />
+
         </div>
+
     );
+
 }
 
 export default SensorGrid;

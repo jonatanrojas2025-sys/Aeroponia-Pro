@@ -1,47 +1,23 @@
+console.log("APIService cargado");
 
-import mqtt from "mqtt";
-console.log("MQTTService cargado");
+export async function obtenerSensores() {
 
-const options = {
-    username: "ESP32_AEROPONIA",
-    password: "Aeroponia2026",
-    protocol: "wss",
-};
+    try {
 
-const client = mqtt.connect(
-    "wss://80e94aa7902f4088820aafa1ee8afc60.s1.eu.hivemq.cloud:8884/mqtt",
-    options
-);
+        const respuesta = await fetch("http://localhost:3001/api/sensores");
 
-client.on("connect", () => {
+        if (!respuesta.ok) {
+            throw new Error("Error al obtener sensores");
+        }
 
-    console.log("✅ Conectado a HiveMQ");
+        return await respuesta.json();
 
-    client.subscribe("aeroponia/sensores");
+    } catch (error) {
 
-});
+        console.error(error);
 
-client.on("message", (topic, message) => {
+        return null;
 
-    console.log("Mensaje recibido:");
+    }
 
-    console.log(topic);
-
-    console.log(message.toString());
-
-});
-client.on("connect", () => {
-    console.log("✅ Conectado a HiveMQ");
-    alert("Conectado a HiveMQ");   // SOLO PARA LA PRUEBA
-    client.subscribe("aeroponia/sensores");
-});
-
-client.on("error", (err) => {
-    console.log(err);
-    alert("Error MQTT: " + err.message);
-});
-
-client.on("close", () => {
-    alert("MQTT desconectado");
-});
-export default client;
+}

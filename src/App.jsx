@@ -1,36 +1,48 @@
 import { useEffect, useState } from "react";
 import Dashboard from "./pages/Dashboard";
-import client from "./mqtt/MQTTService";
+import { obtenerSensores } from "./mqtt/MQTTService";
 
 function App() {
 
     const [datos, setDatos] = useState({
 
-        temp_air:0,
-        hum:0,
-        press:0,
-        alt:0,
-        temp_water:0,
-        ph:0,
-        lux:0,
-        pump:false,
-        wifi:0
+        temperaturaAire: 0,
+        humedad: 0,
+        presion: 0,
+        altitud: 0,
+        temperaturaAgua: 0,
+        ph: 0,
+        luminosidad: 0,
+        bomba: false,
+        wifi: 0
 
     });
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        client.on("message",(topic,message)=>{
+        async function actualizar() {
 
-            const json=JSON.parse(message.toString());
+            const nuevosDatos = await obtenerSensores();
 
-            setDatos(json);
+            if (nuevosDatos) {
 
-        });
+                setDatos(nuevosDatos);
 
-    },[]);
+            }
 
-    return <Dashboard datos={datos}/>;
+        }
+
+        // Primera lectura
+        actualizar();
+
+        // Actualizar cada segundo
+        const intervalo = setInterval(actualizar, 1000);
+
+        return () => clearInterval(intervalo);
+
+    }, []);
+
+    return <Dashboard datos={datos} />;
 
 }
 
