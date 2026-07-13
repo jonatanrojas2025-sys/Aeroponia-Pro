@@ -1,0 +1,187 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0F172A;
+    color:white;
+    font-family:'Segoe UI',sans-serif;
+}
+
+.header{
+
+    height:75px;
+
+    background:#111827;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 35px;
+
+    border-bottom:1px solid #293548;
+
+}
+
+.logo{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    color:#38BDF8;
+
+}
+
+.online{
+
+    color:#22C55E;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+.sensor-grid{
+
+    width:95%;
+
+    margin:auto;
+
+    margin-top:25px;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:22px;
+
+}
+
+.sensor-card{
+
+    background:#1E293B;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    border:1px solid rgba(255,255,255,.05);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+
+    transition:.3s;
+
+}
+
+.sensor-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+
+}
+
+.sensor-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.sensor-icon{
+
+    font-size:42px;
+
+    color:#38BDF8;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+.sensor-title{
+
+    color:#94A3B8;
+
+    font-size:25px;
+
+}
+
+.sensor-unit{
+
+    font-size:24px;
+
+    color:#94A3B8;
+
+}
+
+.sensor-unit{
+
+    font-size:24px;
+
+    color:#94A3B8;
+
+}
+
+.footer{
+
+    width:95%;
+
+    margin:30px auto;
+
+    text-align:center;
+
+    color:#64748B;
+
+    font-size:14px;
+
+}
+
+.sensor-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.sensor-info{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-top:20px;
+
+}
+.sensor-value{
+
+    font-size:66px;
+
+    font-weight:bold;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:10px;
+
+    margin-top: -20px;
+
+}
