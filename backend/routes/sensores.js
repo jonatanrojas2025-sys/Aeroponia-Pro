@@ -9,14 +9,14 @@ router.get("/", (req, res) => {
 
     res.json({
 
-        temperaturaAire: datos.temp_air,
-        humedad: datos.hum,
-        presion: datos.press,
-        altitud: datos.alt,
-        temperaturaAgua: datos.temp_water,
+        temperaturaAire: datos.temperaturaAire,
+        humedad: datos.humedad,
+        presion: datos.presion,
+        altitud: datos.altitud,
+        temperaturaAgua: datos.temperaturaAgua,
         ph: datos.ph,
-        luminosidad: datos.lux,
-        bomba: datos.pump,
+        luminosidad: datos.luminosidad,
+        bomba: datos.bomba,
         wifi: datos.wifi,
 
         fecha: new Date().toLocaleString("es-CO")
